@@ -1,0 +1,16 @@
+streamlit
+pandas
+torch
+numpy
+transformers
+peft
+scikit-learn
+cvss
+deep_translator
+langdetect
+requests
+beautifulsoup4
+mysql-connector-python
+fastapi
+uvicorn
+pydantic
