@@ -12,7 +12,49 @@ M. R. Shahid and H. Debar, "CVSS-BERT: Explainable Natural Language Processing t
 ## Requirements
 The Python libraries required for this project can be installed from the root directory using the following command:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
+```
+
+## Run CVSS-BERT-System (Conda: bert)
+
+The current serving stack is under `CVSS-BERT-System/`.
+
+### 1) Create/update conda environment
+From `CVSS-BERT-System/` run:
+```
+conda env create -f environment.yml
+```
+If the environment already exists, update with:
+```
+conda env update -f environment.yml --prune
+```
+
+### 2) Validate app initialization in environment `bert`
+From `CVSS-BERT-System/` run:
+```
+conda run -n bert python -c "from app.main import create_app; create_app(); print('create_app_ok')"
+```
+Expected output includes `create_app_ok`.
+
+### 3) Start backend service
+From `CVSS-BERT-System/` run:
+```
+conda run -n bert python main.py
+```
+Default bind is `0.0.0.0:8000`.
+
+### 4) If port 8000 is occupied
+Check listener:
+```
+netstat -ano | findstr :8000
+```
+Stop the process (replace PID):
+```
+taskkill /PID <PID> /F
+```
+Then re-run:
+```
+conda run -n bert python main.py
 ```
 
 
@@ -24,7 +66,7 @@ The repo is organized as follows:
 * models: contains the trained models.
 * explainable_bert_classifier: a package that contains all the necessary codes within 3 modules. More details about the content of the package is provided below.
 * app: contains two sub-directory v1 and v2. v1 contains a Dockerfile to deploy the developed models in a containerized application using FastAPI. v2 additionally contains a docker-compose.yml file and allow the deployment of a stack of 2 containers, one to serve the models using FastAPI, the other to save the queries along with the predictions in a MongoDB database. More details on how to run the applications are provided below.
-* train.py: automate the training process described in demo_notebook.ipynb.
+* train_model.py: unified training script (replaces train.py and train_all_metrics.py). Supports single metric or all metrics training.
 * CVSS_BERT__Explainable_Natural_Language_Processing_to_Determine_the_Severity_of_a_Computer_Security_Vulnerability_from_its_Description.pdf: the research paper corresponding to this repository. The reader will find further details about the data, models and methodology used.
 
 ### explainable_bert_classifier package content

@@ -1,0 +1,17 @@
+pandas
+torch
+numpy
+transformers
+peft
+scikit-learn
+cvss
+deep_translator
+langdetect
+requests
+beautifulsoup4
+fastapi
+uvicorn
+pydantic
+SQLAlchemy
+PyMySQL
+cryptography
